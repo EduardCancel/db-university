@@ -81,12 +81,12 @@ per ogni appello d'Esame a cui lo Studente ha partecipato, è necessario memoriz
 - email (VARCHAR(100)) - UNIQUE - NOT NULL
 - student_number (VARCHAR(20)) - UNIQUE NOT NULL
 - date_of_birthday (DATE) (BIGINT) - NOT NULL — FOREIGN KEY
-- degree_program_id
+- degree_program_id (BIGINT) - NOT NULL — FOREIGN KEY
 
 ## Table name ' grades '
 
 ** columns**
 
 - exam_sessions_id (BIGINT) NOT NULL — FOREIGN KEY
-- student_id (BIGINT) NOT NULL — FOREIGN KEY
+- student_id (BIGINT) - NOT NULL — FOREIGN KEY
 - grade (TINYINT) — from 18 to 30
