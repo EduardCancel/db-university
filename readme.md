@@ -23,70 +23,71 @@ per ogni appello d'Esame a cui lo Studente ha partecipato, è necessario memoriz
 
 **columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- name VARCHAR(255) - NOT NULL
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- name VARCHAR(255), NOT NULL
 
 ## Table name ' degree_programs '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- name : (VARCHAR (255)) - NOT NULL
-- department_id (BIGINIT) - NOT NULL - FOREINGN KEY
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- name VARCHAR(255), NOT NULL
+- department_id (BIGINT) FK
 
 ## Table name ' courses '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- name : (VARCHAR(100)) - NOT NULL
-- department_id: (BIGINT) - NOT NULL — FOREIGN KEY
-- degree_program_id: (BIGINT) - NOT NULL — FOREIGN KEY
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- name VARCHAR(100), NOT NULL
+- department_id (BIGINT) FK
+- degree_program_id (BIGINT) FK
 
 ## Table name ' teachers '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- first_name (VARCHAR(255)) - NOT NULL
-- last_name (VARCHAR(255)) - NOT NULL
-- email (VARCHAR(100)) - UNIQUE - NOT NULL
-- address (VARCHAR(255))
-- date_of_birthday (DATE)
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- first_name VARCHAR(255), NOT NULL
+- last_name VARCHAR(255), NOT NULL
+- email VARCHAR(100), UNIQUE, NOT NULL
+- address VARCHAR(255)
+- date_of_birthday DATE
 
 ## Table name ' course_teacher '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- course_id (BIGINT) - NOT NULL — FOREIGN KEY
-- teacher_id (BIGINT) - NOT NULL — FOREIGN KEY
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- course_id (BIGINT)
+- teacher_id (BIGINT)
 
 ## Table name ' exam_sessions '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- course_id (BIGINT) - NOT NULL — FOREIGN KEY
-- date (DATE) - NOT NULL
-- location (VARCHAR(100))
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- course_id (BIGINT) FK → courses(id)
+- date DATE, NOT NULL
+- location VARCHAR(100)
 
 ## Table name ' students '
 
 ** columns**
 
-- id (BIGINIT) primary key - auto_increment - NOT NULL
-- first_name (VARCHAR(255)) - NOT NULL
-- last_name (VARCHAR(255)) - NOT NULL
-- email (VARCHAR(100)) - UNIQUE - NOT NULL
-- student_number (VARCHAR(20)) - UNIQUE NOT NULL
-- date_of_birthday (DATE) (BIGINT) - NOT NULL — FOREIGN KEY
-- degree_program_id (BIGINT) - NOT NULL — FOREIGN KEY
+- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
+- first_name VARCHAR(255), NOT NULL
+- last_name VARCHAR(255), NOT NULL
+- email VARCHAR(100), UNIQUE, NOT NULL
+- student_number VARCHAR(20), UNIQUE, NOT NULL
+- date_of_birthday DATE
+- degree_program_id (BIGINT) FK → degree_programs(id)
 
 ## Table name ' grades '
 
 ** columns**
 
-- exam_sessions_id (BIGINT) NOT NULL — FOREIGN KEY
-- student_id (BIGINT) - NOT NULL — FOREIGN KEY
-- grade (TINYINT) — from 18 to 30
+- exam_sessions_id (BIGINT) FK → exam_sessions(id)
+- student_id (BIGINT) FK → students(id)
+- grade TINYINT CHECK (18 ≤ grade ≤ 30)
+- PRIMARY KEY (exam_sessions_id, student_id)
