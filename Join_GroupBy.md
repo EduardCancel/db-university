@@ -91,20 +91,47 @@ WHERE `departments`.`name` = "Dipartimento di Matematica"
 \*/
 
 📌 GROUP BY
+
 /\*
 
 1. Contare quanti iscritti ci sono stati ogni anno
 
-SELECT YEAR(enrolment_date) AS year, COUNT(\*) AS number_students
-FROM students
-GROUP BY year
+SELECT YEAR(`enrolment_date`) AS `year`, COUNT(\*) AS `number_students`
+FROM `students`
+GROUP BY `year`;
 
 \*/
 
-/\* 2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+/\*
 
-SELECT office_address, COUNT(\*)
-FROM teachers
-GROUP BY office_address;
+2.  Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+SELECT `office_address`, COUNT(_)
+FROM `teachers`
+GROUP BY `office_address`
+_/
+
+/\*
+
+3. Calcolare la media dei voti di ogni appello d'esame
+
+SELECT AVG(`exam_student`.`vote`) AS `vote_average`, `courses`.`name` AS `course_name`, `degrees`.`name` AS `degree_name`
+FROM `exam_student`
+JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id`
+JOIN `courses` ON `exams`.`course_id` = `courses`.`id`
+JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id`
+GROUP BY `courses`.`id`
+ORDER BY `vote_average` DESC
+
+\*/
+
+/\*
+
+4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+SELECT `departments`.`name`, COUNT(\*)
+FROM `degrees`
+JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+GROUP BY `departments`.`name`
 
 \*/
