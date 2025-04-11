@@ -1,3 +1,5 @@
+📌 JOIN
+
 /\* Join
 
 1. Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia
@@ -32,11 +34,10 @@ WHERE `departments`.`name`= 'Dipartimento di Neuroscienza' AND `degrees`.`level`
 -teachers
 
 SELECT \*
-FROM `course_teacher`
-JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
-JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`
-WHERE `teachers`.`name` = "Fulvio"
-AND `teachers`.`surname` = "Amato"
+FROM teachers
+JOIN course_teacher ON course_teacher.teacher_id = teachers.id
+JOIN courses ON course_teacher.course_id = courses.id
+WHERE teachers.id = 44;
 
 \*/
 
@@ -86,5 +87,24 @@ JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
 JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id`
 JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
 WHERE `departments`.`name` = "Dipartimento di Matematica"
+
+\*/
+
+📌 GROUP BY
+/\*
+
+1. Contare quanti iscritti ci sono stati ogni anno
+
+SELECT YEAR(enrolment_date) AS year, COUNT(\*) AS number_students
+FROM students
+GROUP BY year
+
+\*/
+
+/\* 2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+SELECT office_address, COUNT(\*)
+FROM teachers
+GROUP BY office_address;
 
 \*/
