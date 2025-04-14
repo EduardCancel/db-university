@@ -8,86 +8,60 @@ ogni Studente è iscritto ad un solo Corso di Laurea;
 ogni Studente può iscriversi a più appelli di Esame;
 per ogni appello d'Esame a cui lo Studente ha partecipato, è necessario memorizzare il voto ottenuto, anche se non sufficiente. Pensiamo a quali entità (tabelle) creare per il nostro database e cerchiamo poi di stabilirne le relazioni. Infine, andiamo a definire le colonne e i tipi di dato di ogni tabella.
 
-- departments  
-   degree programs
+## Tables
 
-- courses  
-   teachers
+- departments
+- degrees
+- courses
+- teachers
+- exams
+- students
 
-- exam sessions
+## Table: departments
 
-- students  
-   grades
+- id: INT PK AI NN UN
+- name: VARCHAR(100) NOT NULL
+- head_of_department: VARCHAR(100) NOT NULL
+- phone_number: CHAR(100) NULL
+- email: VARCHAR(150)
 
-## Table name 'deparments'
+## Table: degrees ( departments -> degreese)
 
-**columns**
+- id: INT PK AI NN UN
+- name: VARCHAR(100) NOT NULL
+- department_id : INIT FK
+- level
+- website
 
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- name VARCHAR(255), NOT NULL
+## Table: courses
 
-## Table name ' degree_programs '
+- id: INT PK AI NN UN
+- name: VARCHAR(100) NOT NULL
+- degree_id : INT UN
+- cfu: TINYINIT
+- period: VARCHAR(50) NULL
+- email: VARCHAR(150)
 
-** columns**
+## Table: teachers
 
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- name VARCHAR(255), NOT NULL
-- department_id (BIGINT) FK
+- id: INT PK AI NN UN
+- name: VARCHAR(100) NOT NULL
+- lastname: VARCHAR(100) NOT NULL
+- phone_number: CHAR(100) NULL
+- email: VARCHAR(150)
 
-## Table name ' courses '
+## Table: exams
 
-** columns**
+- id: INT PK AI NN UN
+- course_id: INT (FK)
+- date: DATE NOT NULL
+- hour: TIME NOT NULL
+- location: VARCHAR(100) NOT NULL
+- address: VARCHAR(100) NOT NULL
 
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- name VARCHAR(100), NOT NULL
-- department_id (BIGINT) FK
-- degree_program_id (BIGINT) FK
+## Table: students
 
-## Table name ' teachers '
-
-** columns**
-
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- first_name VARCHAR(255), NOT NULL
-- last_name VARCHAR(255), NOT NULL
-- email VARCHAR(100), UNIQUE, NOT NULL
-- address VARCHAR(255)
-- date_of_birthday DATE
-
-## Table name ' course_teacher '
-
-** columns**
-
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- course_id (BIGINT)
-- teacher_id (BIGINT)
-
-## Table name ' exam_sessions '
-
-** columns**
-
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- course_id (BIGINT) FK → courses(id)
-- date DATE, NOT NULL
-- location VARCHAR(100)
-
-## Table name ' students '
-
-** columns**
-
-- id (BIGINT) PK, AUTO_INCREMENT, NOT NULL
-- first_name VARCHAR(255), NOT NULL
-- last_name VARCHAR(255), NOT NULL
-- email VARCHAR(100), UNIQUE, NOT NULL
-- student_number VARCHAR(20), UNIQUE, NOT NULL
-- date_of_birthday DATE
-- degree_program_id (BIGINT) FK → degree_programs(id)
-
-## Table name ' grades '
-
-** columns**
-
-- exam_sessions_id (BIGINT) FK → exam_sessions(id)
-- student_id (BIGINT) FK → students(id)
-- grade TINYINT CHECK (18 ≤ grade ≤ 30)
-- PRIMARY KEY (exam_sessions_id, student_id)
+- id: INT PK AI NN UN
+- degree_id: FK
+- phone_number: CHAR(100) NULL
+- email: VARCHAR(150)
